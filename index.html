@@ -1,0 +1,1049 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Gabriel and Sami's Big Book of Words</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      html {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        font-family:
+          "Cooper Black", "Comic Sans MS", "Arial Rounded MT Bold", Arial,
+          sans-serif;
+        min-height: 100vh;
+        height: 100%;
+        overflow: hidden;
+        background-color: white;
+        background-image: url("background.jpg");
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      /* Animated background elements */
+      .bg-decoration {
+        position: absolute;
+        opacity: 0.1;
+        animation: float 20s infinite ease-in-out;
+      }
+
+      .star {
+        width: 30px;
+        height: 30px;
+        background: white;
+        clip-path: polygon(
+          50% 0%,
+          61% 35%,
+          98% 35%,
+          68% 57%,
+          79% 91%,
+          50% 70%,
+          21% 91%,
+          32% 57%,
+          2% 35%,
+          39% 35%
+        );
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
+
+      .main-container {
+        text-align: center;
+        width: 90%;
+        max-width: 400px;
+        padding: 20px;
+      }
+
+      h1 {
+        color: white;
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        text-shadow: 
+          2px 2px 4px rgba(0, 0, 0, 0.8),
+          -1px -1px 2px rgba(0, 0, 0, 0.5),
+          0 0 20px rgba(0, 0, 0, 0.6);
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 30px;
+        margin-top: 60px;
+      }
+
+      .game-button {
+        background: #ff0000;
+        color: white;
+        border: none;
+        padding: 25px 40px;
+        font-family:
+          "Cooper Black", "Comic Sans MS", "Arial Rounded MT Bold", Arial,
+          sans-serif;
+        font-size: 1.3em;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow:
+          0 8px 0 #cc0000,
+          0 10px 20px rgba(0, 0, 0, 0.3);
+        transition: all 0.1s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .game-button:active {
+        transform: translateY(4px);
+        box-shadow:
+          0 4px 0 #cc0000,
+          0 5px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .game-button:hover {
+        background: #ff5555;
+      }
+
+      /* Slot machine display */
+      .slot-machine {
+        display: none;
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        margin-bottom: 20px;
+      }
+
+      .slot-display {
+        font-size: 4em;
+        font-weight: bold;
+        color: #333;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0f0f0;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 20px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .slot-number {
+        animation: slotRoll 0.1s;
+      }
+
+      @keyframes slotRoll {
+        0% {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .rolling {
+        animation: roll 0.1s infinite;
+      }
+
+      @keyframes roll {
+        0% {
+          transform: translateY(0);
+        }
+        100% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .back-button {
+        background: #ff0000;
+        color: white;
+        border: none;
+	font-family: "Cooper Black", "Comic Sans MS", "Arial Rounded MT Bold", Arial, sans-serif;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        font-weight: bold;
+        border-radius: 30px;
+        cursor: pointer;
+        box-shadow:
+          0 5px 0 #cc0000,
+          0 7px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.1s;
+      }
+
+      .back-button:active {
+        transform: translateY(3px);
+        box-shadow:
+          0 2px 0 #388e3c,
+          0 3px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Image display for game mode 2 */
+      .image-display {
+        width: 200px;
+        height: 200px;
+        background: #f0f0f0;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        font-size: 3em;
+      }
+
+      .image-display img {
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 10px;
+      }
+
+      /* Slot machine reel animation */
+      .slot-reel-container {
+        position: relative;
+        width: 100%;
+        height: 180px;
+        overflow: hidden;
+      }
+
+      .slot-reel {
+        position: absolute;
+        width: 100%;
+        transition: none;
+      }
+
+      .slot-reel.animating {
+        animation: slotSpin 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+      }
+
+      @keyframes slotSpin {
+        0% {
+          transform: translateY(0);
+        }
+        85% {
+          transform: translateY(-2700px);
+        }
+        100% {
+          transform: translateY(var(--final-position));
+        }
+      }
+
+      .reel-item {
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+      }
+
+      .reel-item img {
+        max-width: 160px;
+        max-height: 160px;
+        object-fit: contain;
+        border-radius: 10px;
+      }
+
+      /* Confetti animation */
+      .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: #ff4444;
+        position: absolute;
+        animation: confettiFall 3s linear;
+      }
+
+      @keyframes confettiFall {
+        0% {
+          transform: translateY(-100vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+
+      /* Mobile-specific fixes */
+      @media (max-width: 768px) {
+        body {
+          background-size: cover;
+          background-position: center center;
+          min-height: 100vh;
+          min-height: -webkit-fill-available;
+          height: 100vh;
+        }
+        
+        html {
+          height: -webkit-fill-available;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background decorations -->
+    <div class="bg-decoration star" style="top: 10%; left: 10%"></div>
+    <div
+      class="bg-decoration star"
+      style="top: 20%; right: 15%; animation-delay: -5s"
+    ></div>
+    <div
+      class="bg-decoration star"
+      style="bottom: 30%; left: 20%; animation-delay: -10s"
+    ></div>
+    <div
+      class="bg-decoration star"
+      style="bottom: 20%; right: 10%; animation-delay: -15s"
+    ></div>
+
+
+    <!-- Main menu -->
+    <div id="mainMenu" class="main-container">
+      <div class="button-container">
+        <button class="game-button" onclick="startGame(1)">
+          Find the Page
+        </button>
+        <button class="game-button" onclick="startGame(2)">
+          Find the Image
+        </button>
+      </div>
+    </div>
+
+    <!-- Game display -->
+    <div id="gameDisplay" class="main-container" style="display: none">
+      <div class="slot-machine">
+        <h2 id="gameTitle" style="color: #333; margin-bottom: 20px"></h2>
+        <div id="slotDisplay" class="slot-display">
+          <span id="slotContent"></span>
+        </div>
+      </div>
+      <button class="back-button" onclick="backToMenu()">Back to Menu</button>
+    </div>
+
+    <script>
+      // Sound effects using Web Audio API
+      let audioContext;
+      let soundEnabled = true;
+
+      function initAudio() {
+        if (!audioContext) {
+          audioContext = new (window.AudioContext ||
+            window.webkitAudioContext)();
+        }
+      }
+
+      function playSound(type) {
+        if (!soundEnabled) return;
+        initAudio();
+
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        switch (type) {
+          case "click":
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(
+              400,
+              audioContext.currentTime + 0.1,
+            );
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(
+              0.01,
+              audioContext.currentTime + 0.1,
+            );
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+            break;
+          case "roll":
+            oscillator.frequency.setValueAtTime(
+              200 + Math.random() * 200,
+              audioContext.currentTime,
+            );
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(
+              0.01,
+              audioContext.currentTime + 0.05,
+            );
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.05);
+            break;
+          case "win":
+            oscillator.frequency.setValueAtTime(
+              523.25,
+              audioContext.currentTime,
+            ); // C5
+            oscillator.frequency.setValueAtTime(
+              659.25,
+              audioContext.currentTime + 0.1,
+            ); // E5
+            oscillator.frequency.setValueAtTime(
+              783.99,
+              audioContext.currentTime + 0.2,
+            ); // G5
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(
+              0.01,
+              audioContext.currentTime + 0.5,
+            );
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+            break;
+        }
+      }
+
+      function toggleSound() {
+        soundEnabled = !soundEnabled;
+      }
+
+      // Excluded pages (example set - you can modify this)
+      const excludedPages = new Set([
+        88, 112, 148, 178, 220, 266, 306, 352, 378, 434,
+      ]);
+
+      // Sample images for demo (replace with actual images)
+      const sampleImages = [
+        "images/image001.jpg",
+        "images/image002.jpg",
+        "images/image003.jpg",
+        "images/image004.jpg",
+        "images/image005.jpg",
+        "images/image006.jpg",
+        "images/image007.jpg",
+        "images/image008.jpg",
+        "images/image009.jpg",
+        "images/image010.jpg",
+        "images/image011.jpg",
+        "images/image012.jpg",
+        "images/image013.jpg",
+        "images/image014.jpg",
+        "images/image015.jpg",
+        "images/image016.jpg",
+        "images/image017.jpg",
+        "images/image018.jpg",
+        "images/image019.jpg",
+        "images/image020.jpg",
+        "images/image021.jpg",
+        "images/image022.jpg",
+        "images/image023.jpg",
+        "images/image024.jpg",
+        "images/image025.jpg",
+        "images/image026.jpg",
+        "images/image027.jpg",
+        "images/image028.jpg",
+        "images/image029.jpg",
+        "images/image030.jpg",
+        "images/image031.jpg",
+        "images/image032.jpg",
+        "images/image033.jpg",
+        "images/image034.jpg",
+        "images/image035.jpg",
+        "images/image036.jpg",
+        "images/image037.jpg",
+        "images/image038.jpg",
+        "images/image039.jpg",
+        "images/image040.jpg",
+        "images/image041.jpg",
+        "images/image042.jpg",
+        "images/image043.jpg",
+        "images/image044.jpg",
+        "images/image045.jpg",
+        "images/image046.jpg",
+        "images/image047.jpg",
+        "images/image048.jpg",
+        "images/image049.jpg",
+        "images/image050.jpg",
+        "images/image051.jpg",
+        "images/image052.jpg",
+        "images/image053.jpg",
+        "images/image054.jpg",
+        "images/image055.jpg",
+        "images/image056.jpg",
+        "images/image057.jpg",
+        "images/image058.jpg",
+        "images/image059.jpg",
+        "images/image060.jpg",
+        "images/image061.jpg",
+        "images/image062.jpg",
+        "images/image063.jpg",
+        "images/image064.jpg",
+        "images/image065.jpg",
+        "images/image066.jpg",
+        "images/image067.jpg",
+        "images/image068.jpg",
+        "images/image069.jpg",
+        "images/image070.jpg",
+        "images/image071.jpg",
+        "images/image072.jpg",
+        "images/image073.jpg",
+        "images/image074.jpg",
+        "images/image075.jpg",
+        "images/image076.jpg",
+        "images/image077.jpg",
+        "images/image078.jpg",
+        "images/image079.jpg",
+        "images/image080.jpg",
+        "images/image081.jpg",
+        "images/image082.jpg",
+        "images/image083.jpg",
+        "images/image084.jpg",
+        "images/image085.jpg",
+        "images/image086.jpg",
+        "images/image087.jpg",
+        "images/image088.jpg",
+        "images/image089.jpg",
+        "images/image090.jpg",
+        "images/image091.jpg",
+        "images/image092.jpg",
+        "images/image093.jpg",
+        "images/image094.jpg",
+        "images/image095.jpg",
+        "images/image096.jpg",
+        "images/image097.jpg",
+        "images/image098.jpg",
+        "images/image099.jpg",
+        "images/image100.jpg",
+        "images/image101.jpg",
+        "images/image102.jpg",
+        "images/image103.jpg",
+        "images/image104.jpg",
+        "images/image105.jpg",
+        "images/image106.jpg",
+        "images/image107.jpg",
+        "images/image108.jpg",
+        "images/image109.jpg",
+        "images/image110.jpg",
+        "images/image111.jpg",
+        "images/image112.jpg",
+        "images/image113.jpg",
+        "images/image114.jpg",
+        "images/image115.jpg",
+        "images/image116.jpg",
+        "images/image117.jpg",
+        "images/image118.jpg",
+        "images/image119.jpg",
+        "images/image120.jpg",
+        "images/image121.jpg",
+        "images/image122.jpg",
+        "images/image123.jpg",
+        "images/image124.jpg",
+        "images/image125.jpg",
+        "images/image126.jpg",
+        "images/image127.jpg",
+        "images/image128.jpg",
+        "images/image129.jpg",
+        "images/image130.jpg",
+        "images/image131.jpg",
+        "images/image132.jpg",
+        "images/image133.jpg",
+        "images/image134.jpg",
+        "images/image135.jpg",
+        "images/image136.jpg",
+        "images/image137.jpg",
+        "images/image138.jpg",
+        "images/image139.jpg",
+        "images/image140.jpg",
+        "images/image141.jpg",
+        "images/image142.jpg",
+        "images/image143.jpg",
+        "images/image144.jpg",
+        "images/image145.jpg",
+        "images/image146.jpg",
+        "images/image147.jpg",
+        "images/image148.jpg",
+        "images/image149.jpg",
+        "images/image150.jpg",
+        "images/image151.jpg",
+        "images/image152.jpg",
+        "images/image153.jpg",
+        "images/image154.jpg",
+        "images/image155.jpg",
+        "images/image156.jpg",
+        "images/image157.jpg",
+        "images/image158.jpg",
+        "images/image159.jpg",
+        "images/image160.jpg",
+        "images/image161.jpg",
+        "images/image162.jpg",
+        "images/image163.jpg",
+        "images/image164.jpg",
+        "images/image165.jpg",
+        "images/image166.jpg",
+        "images/image167.jpg",
+        "images/image168.jpg",
+        "images/image169.jpg",
+        "images/image170.jpg",
+        "images/image171.jpg",
+        "images/image172.jpg",
+        "images/image173.jpg",
+        "images/image174.jpg",
+        "images/image175.jpg",
+        "images/image176.jpg",
+        "images/image177.jpg",
+        "images/image178.jpg",
+        "images/image179.jpg",
+        "images/image180.jpg",
+        "images/image181.jpg",
+        "images/image182.jpg",
+        "images/image183.jpg",
+        "images/image184.jpg",
+        "images/image185.jpg",
+        "images/image186.jpg",
+        "images/image187.jpg",
+        "images/image188.jpg",
+        "images/image189.jpg",
+        "images/image190.jpg",
+        "images/image191.jpg",
+        "images/image192.jpg",
+        "images/image193.jpg",
+        "images/image194.jpg",
+        "images/image195.jpg",
+        "images/image196.jpg",
+        "images/image197.jpg",
+        "images/image198.jpg",
+        "images/image199.jpg",
+        "images/image200.jpg",
+        "images/image201.jpg",
+        "images/image202.jpg",
+        "images/image203.jpg",
+        "images/image204.jpg",
+        "images/image205.jpg",
+        "images/image206.jpg",
+        "images/image207.jpg",
+        "images/image208.jpg",
+        "images/image209.jpg",
+        "images/image210.jpg",
+        "images/image211.jpg",
+        "images/image212.jpg",
+        "images/image213.jpg",
+        "images/image214.jpg",
+        "images/image215.jpg",
+        "images/image216.jpg",
+        "images/image217.jpg",
+        "images/image218.jpg",
+        "images/image219.jpg",
+        "images/image220.jpg",
+        "images/image221.jpg",
+        "images/image222.jpg",
+        "images/image223.jpg",
+        "images/image224.jpg",
+        "images/image225.jpg",
+        "images/image226.jpg",
+        "images/image227.jpg",
+        "images/image228.jpg",
+        "images/image229.jpg",
+        "images/image230.jpg",
+        "images/image231.jpg",
+        "images/image232.jpg",
+        "images/image233.jpg",
+        "images/image234.jpg",
+        "images/image235.jpg",
+        "images/image236.jpg",
+        "images/image237.jpg",
+        "images/image238.jpg",
+        "images/image239.jpg",
+        "images/image240.jpg",
+        "images/image241.jpg",
+        "images/image242.jpg",
+        "images/image243.jpg",
+        "images/image244.jpg",
+        "images/image245.jpg",
+        "images/image246.jpg",
+        "images/image247.jpg",
+        "images/image248.jpg",
+        "images/image249.jpg",
+        "images/image250.jpg",
+        "images/image251.jpg",
+        "images/image252.jpg",
+        "images/image253.jpg",
+        "images/image254.jpg",
+        "images/image255.jpg",
+        "images/image256.jpg",
+        "images/image257.jpg",
+        "images/image258.jpg",
+        "images/image259.jpg",
+        "images/image260.jpg",
+        "images/image261.jpg",
+        "images/image262.jpg",
+        "images/image263.jpg",
+        "images/image264.jpg",
+        "images/image265.jpg",
+        "images/image266.jpg",
+        "images/image267.jpg",
+        "images/image268.jpg",
+        "images/image269.jpg",
+        "images/image270.jpg",
+        "images/image271.jpg",
+        "images/image272.jpg",
+        "images/image273.jpg",
+        "images/image274.jpg",
+        "images/image275.jpg",
+        "images/image276.jpg",
+        "images/image277.jpg",
+        "images/image278.jpg",
+        "images/image279.jpg",
+        "images/image280.jpg",
+        "images/image281.jpg",
+        "images/image282.jpg",
+        "images/image283.jpg",
+        "images/image284.jpg",
+        "images/image285.jpg",
+        "images/image286.jpg",
+        "images/image287.jpg",
+        "images/image288.jpg",
+        "images/image289.jpg",
+        "images/image290.jpg",
+        "images/image291.jpg",
+        "images/image292.jpg",
+        "images/image293.jpg",
+        "images/image294.jpg",
+        "images/image295.jpg",
+        "images/image296.jpg",
+        "images/image297.jpg",
+        "images/image298.jpg",
+        "images/image299.jpg",
+        "images/image300.jpg",
+        "images/image301.jpg",
+        "images/image302.jpg",
+        "images/image303.jpg",
+        "images/image304.jpg",
+        "images/image305.jpg",
+        "images/image306.jpg",
+        "images/image307.jpg",
+        "images/image308.jpg",
+        "images/image309.jpg",
+        "images/image310.jpg",
+        "images/image311.jpg",
+        "images/image312.jpg",
+        "images/image313.jpg",
+        "images/image314.jpg",
+        "images/image315.jpg",
+        "images/image316.jpg",
+        "images/image317.jpg",
+        "images/image318.jpg",
+        "images/image319.jpg",
+        "images/image320.jpg",
+        "images/image321.jpg",
+        "images/image322.jpg",
+        "images/image323.jpg",
+        "images/image324.jpg",
+        "images/image325.jpg",
+        "images/image326.jpg",
+        "images/image327.jpg",
+        "images/image328.jpg",
+        "images/image329.jpg",
+        "images/image330.jpg",
+        "images/image331.jpg",
+        "images/image332.jpg",
+        "images/image333.jpg",
+        "images/image334.jpg",
+        "images/image335.jpg",
+        "images/image336.jpg",
+        "images/image337.jpg",
+        "images/image338.jpg",
+        "images/image339.jpg",
+        "images/image340.jpg",
+        "images/image341.jpg",
+        "images/image342.jpg",
+        "images/image343.jpg",
+        "images/image344.jpg",
+        "images/image345.jpg",
+        "images/image346.jpg",
+        "images/image347.jpg",
+        "images/image348.jpg",
+        "images/image349.jpg",
+        "images/image350.jpg",
+        "images/image351.jpg",
+        "images/image352.jpg",
+        "images/image353.jpg",
+        "images/image354.jpg",
+        "images/image355.jpg",
+        "images/image356.jpg",
+        "images/image357.jpg",
+        "images/image358.jpg",
+        "images/image359.jpg",
+        "images/image360.jpg",
+        "images/image361.jpg",
+        "images/image362.jpg",
+        "images/image363.jpg",
+        "images/image364.jpg",
+        "images/image365.jpg",
+        "images/image366.jpg",
+        "images/image367.jpg",
+        "images/image368.jpg",
+        "images/image369.jpg",
+        "images/image370.jpg",
+        "images/image371.jpg",
+        "images/image372.jpg",
+        "images/image373.jpg",
+        "images/image374.jpg",
+        "images/image375.jpg",
+        "images/image376.jpg",
+        "images/image377.jpg",
+        "images/image378.jpg",
+        "images/image379.jpg",
+        "images/image380.jpg",
+        "images/image381.jpg",
+        "images/image382.jpg",
+        "images/image383.jpg",
+        "images/image384.jpg",
+        "images/image385.jpg",
+        "images/image386.jpg",
+        "images/image387.jpg",
+        "images/image388.jpg",
+        "images/image389.jpg",
+        "images/image390.jpg",
+        "images/image391.jpg",
+        "images/image392.jpg",
+        "images/image393.jpg",
+        "images/image394.jpg",
+        "images/image395.jpg",
+        "images/image396.jpg",
+        "images/image397.jpg",
+        "images/image398.jpg",
+        "images/image399.jpg",
+        "images/image400.jpg",
+        "images/image401.jpg",
+        "images/image402.jpg",
+        "images/image403.jpg",
+        "images/image404.jpg",
+        "images/image405.jpg",
+        "images/image406.jpg",
+        "images/image407.jpg",
+        "images/image408.jpg",
+        "images/image409.jpg",
+        "images/image410.jpg",
+        "images/image411.jpg",
+        "images/image412.jpg",
+        "images/image413.jpg",
+        "images/image414.jpg",
+        "images/image415.jpg",
+        "images/image416.jpg",
+        "images/image417.jpg",
+        "images/image418.jpg",
+        "images/image419.jpg",
+        "images/image420.jpg",
+      ];
+
+      let currentGame = 0;
+      let isRolling = false;
+      let preloadedImages = [];
+
+      // Preload images to prevent flickering
+      function preloadImages() {
+        sampleImages.forEach((src, index) => {
+          const img = new Image();
+          img.src = src;
+          preloadedImages[index] = img;
+        });
+      }
+
+      // Call preload when page loads
+      window.addEventListener("load", preloadImages);
+
+      function startGame(gameMode) {
+        playSound("click");
+        currentGame = gameMode;
+        document.getElementById("mainMenu").style.display = "none";
+        document.getElementById("gameDisplay").style.display = "block";
+
+        const gameTitle = gameMode === 1 ? "Find the Page" : "Find the Image";
+        document.getElementById("gameTitle").textContent = gameTitle;
+
+        // Reset display
+        document.getElementById("slotContent").textContent = "?";
+        document.querySelector(".slot-machine").style.display = "block";
+
+        // Start rolling after a short delay
+        setTimeout(() => rollSlotMachine(), 300);
+      }
+
+      function rollSlotMachine() {
+        if (isRolling) return;
+        isRolling = true;
+
+        const slotContent = document.getElementById("slotContent");
+        const duration = 3000; // 3 seconds of rolling
+        const interval = 100; // Update every 100ms
+        let elapsed = 0;
+
+        if (currentGame === 1) {
+          // Original number rolling for page numbers
+          const rollInterval = setInterval(() => {
+            elapsed += interval;
+            playSound("roll");
+
+            // Generate random page number
+            let randomPage;
+            do {
+              randomPage = Math.floor(Math.random() * (447 - 7 + 1)) + 7;
+            } while (excludedPages.has(randomPage));
+
+            slotContent.textContent = randomPage;
+            slotContent.className = "slot-number";
+
+            // Slow down near the end
+            if (elapsed >= duration - 1000) {
+              clearInterval(rollInterval);
+              setTimeout(() => {
+                finalRoll();
+              }, 200);
+            }
+          }, interval);
+        } else {
+          // Smoother animation for images with crossfade
+          slotContent.style.transition = "opacity 0.1s ease";
+          
+          const rollInterval = setInterval(() => {
+            elapsed += interval;
+            playSound("roll");
+
+            // Fade out quickly
+            slotContent.style.opacity = "0.3";
+            
+            setTimeout(() => {
+              // Show random image
+              const randomImage = sampleImages[Math.floor(Math.random() * sampleImages.length)];
+              slotContent.innerHTML = `<img src="${randomImage}" style="max-width: 180px; max-height: 180px; border-radius: 10px;">`;
+              
+              // Fade in quickly
+              slotContent.style.opacity = "1";
+            }, 50);
+
+            // Slow down near the end
+            if (elapsed >= duration - 1000) {
+              clearInterval(rollInterval);
+              slotContent.style.transition = "opacity 0.3s ease";
+              setTimeout(() => {
+                finalRoll();
+              }, 200);
+            }
+          }, interval);
+        }
+      }
+
+      function finalRoll() {
+        const slotContent = document.getElementById("slotContent");
+        let finalResult;
+
+        if (currentGame === 1) {
+          // Final page number
+          do {
+            finalResult = Math.floor(Math.random() * (447 - 7 + 1)) + 7;
+          } while (excludedPages.has(finalResult));
+
+          slotContent.textContent = finalResult;
+        } else {
+          // Final image with smooth transition
+          slotContent.style.opacity = "0";
+          
+          setTimeout(() => {
+            finalResult = sampleImages[Math.floor(Math.random() * sampleImages.length)];
+            slotContent.innerHTML = `<img src="${finalResult}" style="max-width: 180px; max-height: 180px; border-radius: 10px;">`;
+            slotContent.style.opacity = "1";
+          }, 100);
+        }
+
+        playSound("win");
+        createConfetti();
+        isRolling = false;
+      }
+
+      function createConfetti() {
+        const colors = [
+          "#ff4444",
+          "#44ff44",
+          "#4444ff",
+          "#ffff44",
+          "#ff44ff",
+          "#44ffff",
+        ];
+
+        for (let i = 0; i < 50; i++) {
+          setTimeout(() => {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() * 100 + "%";
+            confetti.style.backgroundColor =
+              colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 3000);
+          }, i * 50);
+        }
+      }
+
+      function backToMenu() {
+        playSound("click");
+        document.getElementById("gameDisplay").style.display = "none";
+        document.getElementById("mainMenu").style.display = "block";
+        currentGame = 0;
+      }
+
+      // Handle orientation change
+      window.addEventListener("orientationchange", () => {
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 500);
+      });
+
+      // Prevent zoom on double tap
+      let lastTouchEnd = 0;
+      document.addEventListener(
+        "touchend",
+        (event) => {
+          const now = Date.now();
+          if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+          }
+          lastTouchEnd = now;
+        },
+        false,
+      );
+    </script>
+  </body>
+</html>
